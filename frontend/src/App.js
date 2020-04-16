@@ -1,11 +1,16 @@
-import React from 'react';
-import './App.css';
-import HeaderBar from './components/HeaderBar';
+import React from "react";
+import "./App.css";
+import Headerbar from "./components/Headerbar";
+import Sidebar from "./components/Sidebar";
+import { Layout } from "antd";
 
 function App() {
   return (
     <div className="App">
-      <HeaderBar />
+      <Layout>
+        <Headerbar />
+      </Layout>
+        <Sidebar />
     </div>
   );
 }

@@ -2,7 +2,29 @@
   text-align: center;
 }
 
+/****header****/
 .ant-page-header-heading span{
   color:white;
 }
 
+section .ant-layout{
+  height: 3vh;
+}
+
+/****side bar****/
+aside .ant-layout-sider-children{
+  background-color: #fafafa;
+  display: flex;
+  flex-flow: column;
+  height: 93vh;
+}
+
+
+.ant-layout-sider-children button{
+  margin: 1rem;
+}
+
+.description{
+  text-align: justify;
+  margin: 1rem;
+}
