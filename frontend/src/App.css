@@ -28,3 +28,19 @@ aside .ant-layout-sider-children{
   text-align: justify;
   margin: 1rem;
 }
+
+/****canvas****/
+.ant-layout-content .konvajs-content{
+  background: white;
+}
+
+.ant-layout .ant-layout-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ant-layout .ant-layout-content .btn-section{
+  margin-top: 1rem;
+}
