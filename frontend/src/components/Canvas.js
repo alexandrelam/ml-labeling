@@ -2,6 +2,7 @@ import React from "react";
 import { Layout, Button } from "antd";
 import { Stage, Layer } from "react-konva";
 import "../App.css";
+import URLImage from "./URLImage";
 import Rectangle from "./Rectangle";
 
 const { Content } = Layout;
@@ -9,9 +10,11 @@ const { Content } = Layout;
 const Canvas = () => {
 	const [rectangles, setRectangles] = React.useState([]);
 	const [selectedId, selectShape] = React.useState(null);
+	const [canvasSize, setCanvasSize] = React.useState([600, 600]);
 
+	//********Rectangles Handlers********//
 	const checkDeselect = (e) => {
-		const clickedOnEmpty = e.target === e.target.getStage();
+		const clickedOnEmpty = e.target.attrs.draggable !== true;
 		if (clickedOnEmpty) {
 			selectShape(null);
 		}
@@ -30,21 +33,25 @@ const Canvas = () => {
 		setRectangles(array);
 	};
 
-	const removeRect = () => { 
+	const removeRect = () => {
 		let array = [...rectangles];
 		array.pop();
 		setRectangles(array);
-	}
+	};
 
 	return (
 		<Content>
 			<Stage
-				width={600}
-				height={600}
+				width={canvasSize[0]}
+				height={canvasSize[1]}
 				onMouseDown={checkDeselect}
 				onTouchStart={checkDeselect}
 			>
 				<Layer>
+					<URLImage
+						src="https://lh3.googleusercontent.com/B3iuJcN8-p7zf4Mp7nNVlChrkakecDXzu_q7v4AIH79TQiKAsK-LYcrHzv6BV4yFHlhvfyUcFiDOkI8gO50j9ak81a0Qbu58guWlspRK_qrNHnm9F1WOk65GDMpTXU4NYWIIqOVF9LvM2quwdccY4_27sMLulEG9iHo0Uv4_nAEO2iXa8klAqXtLVoTXuJEiOXsK-KZKd0MmZYBorkiuZ0pMFnQAX1-k7SWrGIwoSQcFVQp_BhkVMnpYokExpjCFCaQPwoDOT1yVm2-bxanXnha3lAys5qO8OCjnbX7GWA8aIl5Vrb6cbRmEIk55j6tjfmXIYwfJtRH3KDQiuT6vaXyCo-Kx1iJ23I9aRKFO8DTHUB_tmOruHGGQe8VF9diK8FnnzX0S7nIfI18Yr3frZUiiCqk30YCG3GLUXL1qThSZB4_wMQUDFVNUPmjr2Ad9XJB7oapNHsn8d3OJ3DgcLfeJ24QbYRAN4Ne_vWCXwOZBZH_kJtmVfHj80JTR6ikCAZ0tDCQt4QsByCa1KEwQTNc0t-B7VOGVrRcX61HkVofHfXZS8O--QNiD2fJt7C1o93UxBhv_8Z3jktAyepqbBhPc35YPYL4d16kzmRGLqPIwXAZNxs469cUPbdX2q_RrDOZRckp1QX8ptnSJQCt1X9ZfpTFtFSfrILnKTrGJrpbCeiKpfyIZ_2v5lGWplQ=w800-h488-no"
+						setCanvasSize={setCanvasSize}
+					/>
 					{rectangles.map((rect, i) => {
 						return (
 							<Rectangle
@@ -68,7 +75,9 @@ const Canvas = () => {
 				<Button type="primary" onClick={addRect}>
 					Add rect
 				</Button>
-				<Button onClick={removeRect} danger>Remove rect</Button>
+				<Button onClick={removeRect} danger>
+					Remove rect
+				</Button>
 			</div>
 		</Content>
 	);

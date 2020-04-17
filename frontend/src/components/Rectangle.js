@@ -15,7 +15,7 @@ const Rectangle = ({ shapeProps, isSelected, onSelect, onChange }) => {
   return (
     <React.Fragment>
       <Rect
-      	stroke = "black"
+      	stroke = "red"
       	strokeWidth = {3}
         onClick={onSelect}
         onTap={onSelect}
