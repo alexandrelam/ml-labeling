@@ -6,25 +6,8 @@ import Rectangle from "./Rectangle";
 
 const { Content } = Layout;
 
-const initialRectangles = [
-	{
-		x: 10,
-		y: 10,
-		width: 100,
-		height: 100,
-		id: "rect1",
-	},
-	{
-		x: 150,
-		y: 150,
-		width: 100,
-		height: 100,
-		id: "rect2",
-	},
-];
-
 const Canvas = () => {
-	const [rectangles, setRectangles] = React.useState(initialRectangles);
+	const [rectangles, setRectangles] = React.useState([]);
 	const [selectedId, selectShape] = React.useState(null);
 
 	const checkDeselect = (e) => {
@@ -33,6 +16,25 @@ const Canvas = () => {
 			selectShape(null);
 		}
 	};
+
+	const addRect = () => {
+		let array = [...rectangles];
+		const newRect = {
+			x: Math.floor(Math.random() * 300),
+			y: Math.floor(Math.random() * 300),
+			width: 100,
+			height: 100,
+			id: array.length,
+		};
+		array.push(newRect);
+		setRectangles(array);
+	};
+
+	const removeRect = () => { 
+		let array = [...rectangles];
+		array.pop();
+		setRectangles(array);
+	}
 
 	return (
 		<Content>
@@ -63,8 +65,10 @@ const Canvas = () => {
 				</Layer>
 			</Stage>
 			<div className="btn-section">
-				<Button type="primary">Add rect</Button>
-				<Button danger>Remove rect</Button>
+				<Button type="primary" onClick={addRect}>
+					Add rect
+				</Button>
+				<Button onClick={removeRect} danger>Remove rect</Button>
 			</div>
 		</Content>
 	);
