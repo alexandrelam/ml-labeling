@@ -6,15 +6,15 @@ import Canvas from "./components/Canvas";
 import { Layout } from "antd";
 
 function App() {
-  return (
-    <div className="App">
-      <Headerbar />
-      <Layout>
-        <Sidebar />
-        <Canvas />
-      </Layout>
-    </div>
-  );
+	return (
+		<div className="App">
+			<Headerbar />
+			<Layout>
+				<Sidebar />
+				<Canvas />
+			</Layout>
+		</div>
+	);
 }
 
 export default App;
