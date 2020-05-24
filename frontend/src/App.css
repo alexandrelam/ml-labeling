@@ -1,46 +1,54 @@
 .App {
-  text-align: center;
+	text-align: center;
 }
 
 /****header****/
-.ant-page-header-heading span{
-  color:white;
+.ant-page-header-heading span {
+	color: white;
 }
 
-section .ant-layout{
-  height: 3vh;
+.App .ant-layout-header{
+	display: flex;
+	align-items: center;
+}
+
+.ant-layout-header .ant-page-header {
+	padding: 0;
+}
+
+section .ant-layout {
+	height: 3vh;
 }
 
 /****side bar****/
-aside .ant-layout-sider-children{
-  background-color: #fafafa;
-  display: flex;
-  flex-flow: column;
-  height: 93vh;
+aside .ant-layout-sider-children {
+	background-color: #fafafa;
+	display: flex;
+	flex-flow: column;
+	height: 93vh;
 }
 
-
-.ant-layout-sider-children button{
-  margin: 1rem;
+.ant-layout-sider-children button {
+	margin: 1rem;
 }
 
-.description{
-  text-align: justify;
-  margin: 1rem;
+.description {
+	text-align: justify;
+	margin: 1rem;
 }
 
 /****canvas****/
-.ant-layout-content .konvajs-content{
-  background: white;
+.ant-layout-content .konvajs-content {
+	background: white;
 }
 
-.ant-layout .ant-layout-content{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.ant-layout .ant-layout-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
-.ant-layout .ant-layout-content .btn-section{
-  margin-top: 1rem;
+.ant-layout .ant-layout-content .btn-section {
+	margin-top: 1rem;
 }
