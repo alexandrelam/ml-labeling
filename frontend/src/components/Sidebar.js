@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Layout, Button, Input } from "antd";
 const { TextArea } = Input;
 
-function Sidebar() {
+function Sidebar(props) {
 	const { Sider } = Layout;
 	const [visible, setVisible] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -27,12 +27,21 @@ function Sidebar() {
 		<Sider width={300} className="site-layout-background">
 			<div className="description">
 				<h3>Description</h3>
-				<p>
-					Détourer les deux chats.
-				</p>
+				{props.issueList.length !== 0 && (
+					<p>{Object.values(props.issueList[props.pagination])[2]}</p>
+				)}
+				<Button type="default" onClick={props.precedent}>
+					Précédent
+				</Button>
+				<Button type="default" onClick={props.suivant}>
+					Suivant
+				</Button>
 				<Button type="primary">Envoyer</Button>
 				<Button type="danger" onClick={showModal}>
 					Signaler
+				</Button>
+				<Button type="default" onClick={props.incrementReload}>
+					Reload
 				</Button>
 			</div>
 			<Modal

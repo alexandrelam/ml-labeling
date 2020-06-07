@@ -17,6 +17,7 @@ router = routers.SimpleRouter()
 router.register(r'issue', views.IssueViewSet)
 router.register(r'coord', views.CoordViewSet)
 router.register(r'report', views.ReportViewSet)
+router.register(r'profile', views.ProfileViewSet)
 urlpatterns = router.urls
 
 urlpatterns += [
