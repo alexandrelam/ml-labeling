@@ -33,7 +33,7 @@ function App() {
 			{
 				method: "GET",
 				headers: new Headers({
-					Authorization: "token fc2f5fd38b8f91d2ada9937647ea33695fa764b8"
+					Authorization: "token 46654af99a9f660cf865ebc44da19dd044049348"
 				})
 			}
 		)

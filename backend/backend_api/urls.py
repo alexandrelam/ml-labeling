@@ -3,6 +3,8 @@ from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token
 from backend_api.core import views
 from rest_framework import routers
+from django.conf import settings
+from django.conf.urls.static import static
 
 """
 urlpatterns = [
@@ -23,4 +25,4 @@ urlpatterns = router.urls
 urlpatterns += [
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
     path('admin/', admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

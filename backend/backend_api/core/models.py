@@ -30,7 +30,9 @@ def create_profile(sender, instance, created, **kwargs):
 class Issue(models.Model):
     title = models.CharField(max_length=100)
     instruction = models.CharField(max_length=300)
-    thumbnail = models.ImageField(upload_to="thumbnail_images", default="thumbnail_images/default.jpg")
+    image_height = models.IntegerField()
+    image_width = models.IntegerField()
+    thumbnail = models.ImageField(upload_to="thumbnail_images", default="thumbnail_images/default.jpg" ,height_field='image_height', width_field='image_width')
 
     def __str__(self):
         return f'{self.title} Issue'
