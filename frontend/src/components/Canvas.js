@@ -45,8 +45,7 @@ const Canvas = (props) => {
 		(props.issueList.length !== 0) && setPhotoLink(Object.values(props.issueList[props.pagination])[5]);
 		(props.issueList.length !== 0) && setImageWidth(Object.values(props.issueList[props.pagination])[4]);
 		(props.issueList.length !== 0) && setImageHeight(Object.values(props.issueList[props.pagination])[3]);
-        console.log(props.issueList);
-	}, [props.pagination]);
+	}, [props]);
 
 	return (
 		<Content>
