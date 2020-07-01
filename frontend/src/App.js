@@ -8,7 +8,6 @@ import { Layout } from "antd";
 function App() {
 	const [issueList, setIssueList] = useState([]);
 	const [rectanglesList, setRectanglesList] = useState([]);
-
 	const [pagination, setPagination] = useState(0);
 	const [reload, setReload] = useState(0);
 
@@ -60,6 +59,7 @@ function App() {
 	useEffect(() => {
 		fetchIssue();
 		fetchRectangles();
+		console.log(rectanglesList);
 	}, [reload]);
 
 	return (

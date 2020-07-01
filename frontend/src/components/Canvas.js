@@ -41,10 +41,37 @@ const Canvas = (props) => {
 		setRectangles(array);
 	};
 
+	const loadRects = () => {
+		if(props.rectanglesList.length !== 0){
+			const active_issue_id = props.issueList[props.pagination].id;
+			const filtered_rect = props.rectanglesList.filter(rec => rec.issue === active_issue_id)
+
+			filtered_rect.map(rec => {
+				let array = [...rectangles];
+				const {width, height, x_coord, y_coord} =  rec;
+				const newRect = {
+					x: x_coord,
+					y: y_coord,
+					width: width,
+					height: height,
+					id: array.length
+				};
+				array.push(newRect);
+				setRectangles(array);
+			});
+		}
+	}
+
+	const emptyRectangles = () => {
+		setRectangles([]);
+	}
+
 	React.useEffect(() => {
+		emptyRectangles();
 		(props.issueList.length !== 0) && setPhotoLink(Object.values(props.issueList[props.pagination])[5]);
 		(props.issueList.length !== 0) && setImageWidth(Object.values(props.issueList[props.pagination])[4]);
 		(props.issueList.length !== 0) && setImageHeight(Object.values(props.issueList[props.pagination])[3]);
+		loadRects();
 	}, [props]);
 
 	return (
