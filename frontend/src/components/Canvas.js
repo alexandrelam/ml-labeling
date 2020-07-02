@@ -44,7 +44,7 @@ const Canvas = (props) => {
 	const loadRects = () => {
 		if(props.rectanglesList.length !== 0){
 			const active_issue_id = props.issueList[props.pagination].id;
-			const filtered_rect = props.rectanglesList.filter(rec => rec.issue === active_issue_id)
+			const filtered_rect = props.rectanglesList.filter(rec => rec.issue === active_issue_id);
 
 			filtered_rect.map(rec => {
 				let array = [...rectangles];
