@@ -30,7 +30,13 @@ function Sidebar(props) {
 				{props.issueList.length !== 0 && (
 					<p>{Object.values(props.issueList[props.pagination])[2]}</p>
 				)}
-				<Button type="primary">Envoyer</Button>
+				<Button type="default" onClick={props.precedent}>
+                    Précédent
+                </Button>
+                <Button type="default" onClick={props.suivant}>
+                    Suivant
+                </Button>
+				<Button type="primary" onClick={props.save}>Envoyer</Button>
 				<Button type="danger" onClick={showModal}>
 					Signaler
 				</Button>

@@ -8,7 +8,6 @@ import Rectangle from "./Rectangle";
 const { Content } = Layout;
 
 const Canvas = (props) => {
-    const [rectangles, setRectangles] = React.useState([]);
     const [selectedId, selectShape] = React.useState(null);
     const [photoLink, setPhotoLink] = React.useState("");
     const [imageWidth, setImageWidth] = React.useState(0);
@@ -21,27 +20,9 @@ const Canvas = (props) => {
             selectShape(null);
         }
     };
-
-    const suivant = () => {
-        if (props.pagination < props.issueList.length - 1) {
-            props.setPagination(props.pagination + 1);
-            emptyRectangles();
-        }
-    };
-
-    const precedent = () => {
-        if (props.pagination > 0) {
-            props.setPagination(props.pagination - 1);
-            emptyRectangles();
-        }
-    };
-
-    const emptyRectangles = () => {
-        setRectangles(() => []);
-    };
-
+    
     const addRect = () => {
-        let array = [...rectangles];
+        let array = [...props.rectangles];
         const newRect = {
             x: Math.floor(Math.random() * 300),
             y: Math.floor(Math.random() * 300),
@@ -50,18 +31,16 @@ const Canvas = (props) => {
             id: array.length,
         };
         array.push(newRect);
-        setRectangles(array);
+        props.setRectangles(array);
     };
 
     const removeRect = () => {
-        let array = [...rectangles];
+        let array = [...props.rectangles];
         array.pop();
-        setRectangles(array);
+        props.setRectangles(array);
     };
 
     React.useEffect(() => {
-        console.log(props);
-        console.log(props.rectanglesList);
         const loadRects = () => {
             if (
                 props.rectanglesList.length !== 0 &&
@@ -72,7 +51,7 @@ const Canvas = (props) => {
                     (rec) => rec.issue === active_issue_id
                 );
 
-                let array = [...rectangles];
+                let array = [...props.rectangles];
 
                 filtered_rect.map((rec) => {
                     const { width, height, x_coord, y_coord } = rec;
@@ -84,12 +63,11 @@ const Canvas = (props) => {
                         id: array.length,
                     };
                     array.push(newRect);
-                    setRectangles(array);
+                    props.setRectangles(array);
                 });
             }
         };
 
-        emptyRectangles();
         props.issueList.length !== 0 &&
             setPhotoLink(Object.values(props.issueList[props.pagination])[5]);
         props.issueList.length !== 0 &&
@@ -97,7 +75,7 @@ const Canvas = (props) => {
         props.issueList.length !== 0 &&
             setImageHeight(Object.values(props.issueList[props.pagination])[3]);
         loadRects();
-    }, [props]);
+    }, [props.pagination]);
 
     return (
         <Content>
@@ -109,7 +87,7 @@ const Canvas = (props) => {
             >
                 <Layer>
                     <URLImage src={photoLink} />
-                    {rectangles.map((rect, i) => {
+                    {props.rectangles.map((rect, i) => {
                         return (
                             <Rectangle
                                 key={i}
@@ -119,9 +97,9 @@ const Canvas = (props) => {
                                     selectShape(rect.id);
                                 }}
                                 onChange={(newAttrs) => {
-                                    const rects = rectangles.slice();
+                                    const rects = props.rectangles.slice();
                                     rects[i] = newAttrs;
-                                    setRectangles(rects);
+                                    props.setRectangles(rects);
                                 }}
                             />
                         );
@@ -135,12 +113,7 @@ const Canvas = (props) => {
                 <Button onClick={removeRect} danger>
                     Remove rect
                 </Button>
-                <Button type="default" onClick={precedent}>
-                    Précédent
-                </Button>
-                <Button type="default" onClick={suivant}>
-                    Suivant
-                </Button>
+                
             </div>
         </Content>
     );
