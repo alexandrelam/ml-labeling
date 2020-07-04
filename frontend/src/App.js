@@ -13,8 +13,6 @@ function App() {
     const [rectangles, setRectangles] = React.useState([]);
 
     const incrementReload = () => {
-        console.log(issueList);
-        console.log(rectanglesList);
         setReload(reload + 1);
     };
 
@@ -36,9 +34,36 @@ function App() {
         setRectangles(() => []);
     };
 
+    const deleteRec = (id) => {
+        fetch(
+            "http://127.0.0.1:8000/coord/" + id,
+
+            {
+                method: "DELETE",
+                headers: new Headers({
+                    Authorization:
+                        "token 46654af99a9f660cf865ebc44da19dd044049348",
+                }),
+            }
+        );
+    };
+
+    const deleteBeforeAddingNewRect = () => {
+        if (issueList.length !== 0) {
+            const active_issue_id = issueList[pagination].id;
+            const filtered_rect = rectanglesList.filter(
+                (rec) => rec.issue === active_issue_id
+            );
+            filtered_rect.map((rec) => {
+                deleteRec(rec.id);
+            });
+        }
+    };
+
     const save = () => {
-        console.log("saving...");
         rectangles.map((rec) => {
+            deleteBeforeAddingNewRect();
+
             const { x, y, width, height } = rec;
             let formData = new FormData();
             formData.append("x_coord", Math.round(x));
@@ -47,18 +72,11 @@ function App() {
             formData.append("height", Math.round(height));
             formData.append("issue", issueList[pagination].id);
             formData.append("id", rectanglesList.length + 1);
-            console.log(formData);
             createPost(formData);
         });
     };
 
     const createPost = (opts) => {
-        for (var value of opts.entries()) {
-            console.log(value);
-        }
-        for (var value of opts.values()) {
-            console.log(value);
-        }
         fetch(
             "http://127.0.0.1:8000/coord/",
 
@@ -71,7 +89,8 @@ function App() {
                 body: opts,
             }
         )
-            .then((res) => console.log(res))
+            .then(() => fetchIssue())
+            .then(() => fetchRectangles());
     };
 
     const fetchIssue = () => {
@@ -104,6 +123,7 @@ function App() {
     useEffect(() => {
         fetchIssue();
         fetchRectangles();
+        deleteBeforeAddingNewRect();
     }, [reload]);
 
     return (
