@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Button } from "antd";
+import { Layout, Button, Alert, Space } from "antd";
 import { Stage, Layer } from "react-konva";
 import "../App.css";
 import URLImage from "./URLImage";
@@ -20,7 +20,7 @@ const Canvas = (props) => {
             selectShape(null);
         }
     };
-    
+
     const addRect = () => {
         let array = [...props.rectangles];
         const newRect = {
@@ -79,42 +79,44 @@ const Canvas = (props) => {
 
     return (
         <Content>
-            <Stage
-                width={imageWidth}
-                height={imageHeight}
-                onMouseDown={checkDeselect}
-                onTouchStart={checkDeselect}
-            >
-                <Layer>
-                    <URLImage src={photoLink} />
-                    {props.rectangles.map((rect, i) => {
-                        return (
-                            <Rectangle
-                                key={i}
-                                shapeProps={rect}
-                                isSelected={rect.id === selectedId}
-                                onSelect={() => {
-                                    selectShape(rect.id);
-                                }}
-                                onChange={(newAttrs) => {
-                                    const rects = props.rectangles.slice();
-                                    rects[i] = newAttrs;
-                                    props.setRectangles(rects);
-                                }}
-                            />
-                        );
-                    })}
-                </Layer>
-            </Stage>
-            <div className="btn-section">
-                <Button type="primary" onClick={addRect}>
-                    Add rect
-                </Button>
-                <Button onClick={removeRect} danger>
-                    Remove rect
-                </Button>
-                
-            </div>
+            <Space direction="vertical" size="large">
+                {props.alert && <Alert message="Sauvegarde réussi !" type="success" showIcon />}
+                <Stage
+                    width={imageWidth}
+                    height={imageHeight}
+                    onMouseDown={checkDeselect}
+                    onTouchStart={checkDeselect}
+                >
+                    <Layer>
+                        <URLImage src={photoLink} />
+                        {props.rectangles.map((rect, i) => {
+                            return (
+                                <Rectangle
+                                    key={i}
+                                    shapeProps={rect}
+                                    isSelected={rect.id === selectedId}
+                                    onSelect={() => {
+                                        selectShape(rect.id);
+                                    }}
+                                    onChange={(newAttrs) => {
+                                        const rects = props.rectangles.slice();
+                                        rects[i] = newAttrs;
+                                        props.setRectangles(rects);
+                                    }}
+                                />
+                            );
+                        })}
+                    </Layer>
+                </Stage>
+                <div className="btn-section">
+                    <Button type="primary" onClick={addRect}>
+                        Add rect
+                    </Button>
+                    <Button onClick={removeRect} danger>
+                        Remove rect
+                    </Button>
+                </div>
+            </Space>
         </Content>
     );
 };

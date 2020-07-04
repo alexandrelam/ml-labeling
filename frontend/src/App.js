@@ -11,6 +11,15 @@ function App() {
     const [reload, setReload] = useState(0);
     const [pagination, setPagination] = React.useState(0);
     const [rectangles, setRectangles] = React.useState([]);
+    const [alert, setAlert] = React.useState(false);
+
+    const handleAlert = () => {
+        setAlert(true);
+
+        setTimeout(() => {
+            setAlert(false);
+        }, 2500);
+    };
 
     const incrementReload = () => {
         setReload(reload + 1);
@@ -62,8 +71,13 @@ function App() {
 
     const save = () => {
         rectangles.map((rec) => {
+            // Avant de sauvegarder, on supprime les rects qui sont actifs de la db
+            // sinon, on resauvegarde les rects qui existent deja et on les duplique
+
+            // Suppression des rects actifs
             deleteBeforeAddingNewRect();
 
+            // Ajout des nouveaux rects
             const { x, y, width, height } = rec;
             let formData = new FormData();
             formData.append("x_coord", Math.round(x));
@@ -90,7 +104,8 @@ function App() {
             }
         )
             .then(() => fetchIssue())
-            .then(() => fetchRectangles());
+            .then(() => fetchRectangles())
+            .then(handleAlert());
     };
 
     const fetchIssue = () => {
@@ -145,6 +160,7 @@ function App() {
                     setPagination={setPagination}
                     rectangles={rectangles}
                     setRectangles={setRectangles}
+                    alert={alert}
                 />
             </Layout>
         </div>
