@@ -6,22 +6,38 @@ function Sidebar(props) {
 	const { Sider } = Layout;
 	const [visible, setVisible] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const [reportTxt, setReportTxt] = useState("");
 
 	const showModal = () => {
 		setVisible(true);
 	};
 
-	const handleOk = () => {
-		setLoading(true);
-		setTimeout(() => {
-			setLoading(false);
-			setVisible(false);
-		}, 3000);
-	};
-
 	const handleCancel = () => {
 		setVisible(false);
 	};
+
+	const postReport = (e) => {
+		setLoading(true);
+
+		let formData = new FormData();
+		formData.append("reportMsg", reportTxt);
+		formData.append("issue", props.issueList[props.pagination].id);
+		
+        fetch(
+            "http://127.0.0.1:8000/report/",
+
+            {
+                method: "POST",
+                headers: new Headers({
+                    Authorization:
+                        "token 46654af99a9f660cf865ebc44da19dd044049348",
+                }),
+                body: formData,
+            }
+		)
+		.then(setLoading(false))
+		.then(setVisible(false));
+    };
 
 	return (
 		<Sider width={300} className="site-layout-background">
@@ -40,26 +56,27 @@ function Sidebar(props) {
 				<Button type="danger" onClick={showModal}>
 					Signaler
 				</Button>
-				<Button type="default" onClick={props.incrementReload}>
-					Reload
+				<Button type="default" onClick={props.deleteAll}>
+					Tout supprimer
 				</Button>
 			</div>
 			<Modal
 				visible={visible}
 				title="Décrivez l'erreur"
-				onOk={handleOk}
+				onOk={postReport}
 				onCancel={handleCancel}
 				footer={[
 					<Button key="retour" onClick={handleCancel}>
 						Return
 					</Button>,
-					<Button key="envoyer" type="primary" loading={loading} onClick={handleOk}>
+					<Button key="envoyer" type="primary" loading={loading} onClick={postReport}>
 						Submit
 					</Button>
 				]}
 			>
 				<TextArea
 					placeholder="280 caractères maximum"
+					onChange={e=>setReportTxt(e.target.value)}
 					autoSize={{ minRows: 6, maxRows: 6 }}
 				/>
 			</Modal>

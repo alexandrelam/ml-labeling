@@ -8,7 +8,6 @@ import { Layout } from "antd";
 function App() {
     const [issueList, setIssueList] = useState([]);
     const [rectanglesList, setRectanglesList] = useState([]);
-    const [reload, setReload] = useState(0);
     const [pagination, setPagination] = React.useState(0);
     const [rectangles, setRectangles] = React.useState([]);
     const [alert, setAlert] = React.useState(false);
@@ -19,10 +18,6 @@ function App() {
         setTimeout(() => {
             setAlert(false);
         }, 2500);
-    };
-
-    const incrementReload = () => {
-        setReload(reload + 1);
     };
 
     const suivant = () => {
@@ -43,6 +38,10 @@ function App() {
         setRectangles(() => []);
     };
 
+    const emptyRectangleList = () => {
+        setRectanglesList(() => []);
+    };
+
     const deleteRec = (id) => {
         fetch(
             "http://127.0.0.1:8000/coord/" + id,
@@ -54,7 +53,7 @@ function App() {
                         "token 46654af99a9f660cf865ebc44da19dd044049348",
                 }),
             }
-        );
+        )
     };
 
     const deleteBeforeAddingNewRect = () => {
@@ -135,11 +134,18 @@ function App() {
             .then((res) => setRectanglesList(res));
     };
 
+    const deleteAll = () => {
+        deleteBeforeAddingNewRect();
+        emptyRectangles();
+        emptyRectangleList();
+        fetchIssue();
+        fetchRectangles();
+    };
+
     useEffect(() => {
         fetchIssue();
         fetchRectangles();
-        deleteBeforeAddingNewRect();
-    }, [reload]);
+    }, []);
 
     return (
         <div className="App">
@@ -147,11 +153,11 @@ function App() {
             <Layout>
                 <Sidebar
                     issueList={issueList}
-                    incrementReload={incrementReload}
                     pagination={pagination}
                     precedent={precedent}
                     suivant={suivant}
                     save={save}
+                    deleteAll={deleteAll}
                 />
                 <Canvas
                     issueList={issueList}
