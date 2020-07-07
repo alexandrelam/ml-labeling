@@ -52,3 +52,11 @@ aside .ant-layout-sider-children {
 .ant-layout .ant-layout-content .btn-section {
 	margin-top: 1rem;
 }
+
+/****login****/
+.App #basic{
+	max-width: 500px;
+	margin: auto;
+	margin-top: 25vh;
+	text-align: center;
+}
