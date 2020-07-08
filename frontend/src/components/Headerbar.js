@@ -5,7 +5,8 @@ import { Divider, PageHeader, Button } from "antd";
 
 function Headerbar({ token, setToken, username }) {
     const disconnect = () => {
-        setToken("");
+		setToken("");
+		localStorage.clear();
     };
 
     return (
