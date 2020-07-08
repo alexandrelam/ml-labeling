@@ -9,7 +9,7 @@ function App() {
 
     return (
         <div className="App">
-            <Headerbar />
+            <Headerbar  token={token} setToken={setToken}/>
             {token.length !== 0 ? <Home token={token}/> : <Login setToken={setToken} token={token} />}
         </div>
     );

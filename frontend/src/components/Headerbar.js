@@ -1,20 +1,38 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "../App.css";
 import "antd/dist/antd.css";
-import { Layout, PageHeader } from "antd";
+import { Divider, PageHeader, Button } from "antd";
 
-function Headerbar() {
-	const { Header } = Layout;
+function Headerbar({ token, setToken }) {
+    const disconnect = () => {
+        setToken("");
+    };
 
-	return (
-		<Header className="header">
-			<PageHeader
-				className="site-page-header head"
-				title="ML-Labeling"
-				subTitle="Aidez nous à améliorer nos algorithmes !"
-			/>
-		</Header>
-	);
+    return (
+        <Fragment>
+            {token.length !== 0 ? (
+                <PageHeader
+                    ghost={false}
+                    title="ML-Labeling"
+                    subTitle="Aidez-nous à améliorer nos algorithmes"
+                    extra={[
+                        <Button key="2">alex</Button>,
+                        <Button key="1" type="primary" onClick={disconnect}>
+                            se déconnecter
+                        </Button>,
+                    ]}
+                ></PageHeader>
+            ) : (
+                <PageHeader
+                    ghost={false}
+                    title="ML-Labeling"
+                    subTitle="Aidez-nous à améliorer nos algorithmes"
+                ></PageHeader>
+            )}
+
+            <Divider className="diviseur" />
+        </Fragment>
+    );
 }
 
 export default Headerbar;
