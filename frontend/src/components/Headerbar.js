@@ -3,7 +3,7 @@ import "../App.css";
 import "antd/dist/antd.css";
 import { Divider, PageHeader, Button } from "antd";
 
-function Headerbar({ token, setToken }) {
+function Headerbar({ token, setToken, username }) {
     const disconnect = () => {
         setToken("");
     };
@@ -16,7 +16,7 @@ function Headerbar({ token, setToken }) {
                     title="ML-Labeling"
                     subTitle="Aidez-nous à améliorer nos algorithmes"
                     extra={[
-                        <Button key="2">alex</Button>,
+                        <Button key="2">{username}</Button>,
                         <Button key="1" type="primary" onClick={disconnect}>
                             se déconnecter
                         </Button>,
