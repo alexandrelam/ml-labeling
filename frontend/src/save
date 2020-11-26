@@ -1,0 +1,2 @@
+		(props.issueList.length !== 0) && setImageWidth(Object.values(props.issueList[props.pagination])[2])
+		(props.issueList.length !== 0) && setImageHeight(Object.values(props.issueList[props.pagination])[1])
